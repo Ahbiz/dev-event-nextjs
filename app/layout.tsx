@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { Schibsted_Grotesk, Martian_Mono } from "next/font/google";
 import LightRays from "@/components/LightRays";
 import Navbar from "@/components/Navbar";
+import { CSPostHogProvider } from "./providers";
 
 const schibstedGrotesk = Schibsted_Grotesk({
   variable: "--font-schibsted-grotesk",
@@ -27,6 +28,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <CSPostHogProvider>
       <body
         className={`${schibstedGrotesk.variable} ${martianMono.variable} min-h-screen antialiased`}
       >
@@ -46,6 +48,7 @@ export default function RootLayout({
         </div>
         <main>{children}</main>
       </body>
+      </CSPostHogProvider>
     </html>
   );
 }
