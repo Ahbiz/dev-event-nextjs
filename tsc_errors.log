@@ -1,0 +1,12 @@
+database/booking.model.ts(38,14): error TS2349: This expression is not callable.
+  Type 'SaveOptions' has no call signatures.
+database/booking.model.ts(41,3): error TS2349: This expression is not callable.
+  Type 'SaveOptions' has no call signatures.
+database/event.model.ts(62,14): error TS2349: This expression is not callable.
+  Type 'SaveOptions' has no call signatures.
+database/event.model.ts(73,12): error TS2349: This expression is not callable.
+  Type 'SaveOptions' has no call signatures.
+database/event.model.ts(77,12): error TS2349: This expression is not callable.
+  Type 'SaveOptions' has no call signatures.
+database/event.model.ts(80,3): error TS2349: This expression is not callable.
+  Type 'SaveOptions' has no call signatures.
