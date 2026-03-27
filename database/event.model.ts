@@ -140,10 +140,25 @@ function generateSlug(title: string): string {
 
 // Helper function to normalize date to ISO format
 function normalizeDate(dateString: string): string {
-  const date = new Date(dateString);
+  const trimmedDate = dateString.trim();
+
+  // If input is already in YYYY-MM-DD format, return it directly to avoid local timezone shifts
+  if (/^\d{4}-\d{2}-\d{2}$/.test(trimmedDate)) {
+    return trimmedDate;
+  }
+
+  // For other formats (like ISO strings), ensure they are parsed as UTC to maintain consistency
+  // Construct a Date while forcing UTC context (e.g., by adding 'Z' if missing for ISO-like strings)
+  const dateInput = (trimmedDate.includes('T') && !trimmedDate.includes('Z') && !/[+-]\d{2}:?\d{2}$/.test(trimmedDate))
+    ? `${trimmedDate}Z`
+    : trimmedDate;
+
+  const date = new Date(dateInput);
+
   if (isNaN(date.getTime())) {
     throw new Error('Invalid date format');
   }
+
   return date.toISOString().split('T')[0]; // Return YYYY-MM-DD format
 }
 
@@ -160,6 +175,10 @@ function normalizeTime(timeString: string): string {
   let hours = parseInt(match[1]);
   const minutes = match[2];
   const period = match[4]?.toUpperCase();
+
+  if (period && (hours < 1 || hours > 12)) {
+    throw new Error('Invalid time format. Use HH:MM or HH:MM AM/PM');
+  }
 
   if (period) {
     // Convert 12-hour to 24-hour format
